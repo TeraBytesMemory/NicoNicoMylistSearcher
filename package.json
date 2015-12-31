@@ -1,0 +1,17 @@
+{
+  "name": "niconico-mylist-search-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "manifest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yujiro Terazawa2kq14magp2m
+",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.2.1",
+    "react": "^0.14.5"
+  }
+}
