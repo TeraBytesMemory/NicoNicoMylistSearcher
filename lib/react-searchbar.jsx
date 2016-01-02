@@ -1,14 +1,14 @@
 (function (Definition) {
 
     // use webpack
-    module.exports = new Definition();
+    module.exports = Definition;
 
 })(function () {
     'use strict';
 
     var React = require('react');
 
-    var searchEngine = require('./searchEngine');
+    var searchEngine = require('./search-engine');
 
     var module = React.createClass({
 
