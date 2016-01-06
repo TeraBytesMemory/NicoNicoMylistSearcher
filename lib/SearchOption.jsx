@@ -16,19 +16,16 @@
 
     var module = React.createClass({
         update: function() {
-            var andorOption = _.reduce(SearchOptionDOM,
-                                 function (value, node) {
-                                     if (node.props.andor && node.state.checked) {
-                                         return node.props.andor;
-                                     }
-                                 }, null);
-            var strategies = _.reduce(SearchOptionDOM,
-                                 function (value, node) {
-                                     if (node.props.strategy && node.state.checked) {
-                                         value.append(node.props.andor);
-                                         return value;
-                                     }
-                                 }, []);
+            var andorOption = _.find(SearchOptionDOM, function (node) {
+                return node.props.andor && node.state.checked;
+            });
+
+            var strategies = _.chain(SearchOptionDOM)
+                    .filter(function(node) {
+                        node.props.strategy && node.state.checked
+                    }).map(function(node) {
+                        return node.props.strategy
+                    });
 
             searchEngine.updateMethod(andorOption, strategies);
         },
