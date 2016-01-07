@@ -4,11 +4,11 @@
 )(function () {
     'use strict';
 
-    var React = require('React');
+    var React = require('react');
     var _ = require('lodash');
 
     var searchEngine = require('./search-engine.js');
-    var SearchOptionInputClass = require('./search-option-input.jsx');
+    var SearchOptionInputClass = require('./SearchOptionInput.jsx');
     var optionDOMConfigure = require('./option-dom-configure.js')
 
     var SearchOption = React.createFactory(SearchOptionInputClass);

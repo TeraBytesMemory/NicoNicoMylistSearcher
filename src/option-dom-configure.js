@@ -6,7 +6,7 @@
 })(function () {
     'use strict';
 
-    var searchStrategies = require('./search-strategiesy.js');
+    var searchStrategies = require('./search-strategies.js');
 
     var module = [
         {

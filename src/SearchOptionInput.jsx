@@ -6,7 +6,7 @@
 })(function() {
     'use strict';
 
-    var React = require('React');
+    var React = require('react');
     var SearchOption = require('./SearchOption.jsx');
 
     var module = React.createClass({

@@ -20,7 +20,10 @@
         rendar: function () {
             return (
                     <div>
-                      <input onChange={this.onChange} placeholder='検索ワード'>
+                    <input
+                onChange={this.onChange}
+                placeholder='検索ワード'
+                    />
                     </div>
             );
         }

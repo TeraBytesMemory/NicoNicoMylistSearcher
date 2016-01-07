@@ -12,7 +12,6 @@
 
     var _ = require('lodash');
 
-    var ResultList = require('./ResultList.jsx');
     var generateSearchMethod = require('./generate-search-method.js')
             .generateSearchMethod;
     var mylist = require('./mylist.js');
