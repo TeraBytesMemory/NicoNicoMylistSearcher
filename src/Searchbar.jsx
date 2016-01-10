@@ -13,15 +13,15 @@
     var module = React.createClass({
 
         handleChange: function (e) {
-            searchEngine.search();
+            searchEngine.updateSearchResult();
             this.setState({ text: e.target.value });
         },
 
         rendar: function () {
             return (
-                    <div>
+                    <div class='ext-search-bar'>
                     <input
-                onChange={this.onChange}
+                onChange={this.handleChange}
                 placeholder='検索ワード'
                     />
                     </div>

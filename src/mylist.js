@@ -12,6 +12,7 @@
     // definition for nicovideo api
     var _nicovideoUrl = "http://www.nicovideo.jp/";
     var _tabPrefix = _nicovideoUrl + "my/mylist/";
+    var _classRenderTo = 'outer listOption';
 
     var module = function() {};
 
@@ -23,6 +24,10 @@
                 && document.getElementsByClassName("articleBody").length;
 
         return new Boolean(rules);
+    };
+
+    module.prototype.getRenderTo = function() {
+        return document.getElementsByClassName(_classRenderTo);
     };
 
     module.prototype.getMyList = function() {

@@ -8,7 +8,7 @@
     "browser_action": {
     },
     "background": {
-        "scripts": "bundle.js",
+        "scripts": "./build/bundle.js",
         "persistent": false
     },
     "permissions": [

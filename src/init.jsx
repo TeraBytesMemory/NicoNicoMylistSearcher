@@ -19,19 +19,20 @@
      * @constructor
      */
     var module = function() {
-        this.init();
+        chrome.tabs.getCurrent(function (tab) {
+            if (tab.url && mylist.isAble()) {
+                this.init();
+            }
+        });
     };
 
     module.prototype.init = function() {
-        chrome.tabs.getCurrent(function (tab) {
-            if (tab.url && mylist.isAble()) return;
+        // render react DOM
+        var rendered = <div><SearchOption /><Searchbar /></div>;
+        var nodeRendered = React.findDOMNode(rendered);
+        var container = mylist.getRenderTo();
 
-            // render react DOM
-            React.render(<SearchOption />,
-                         document.getElementsByClassName("outer listPosition"));
-            React.render(<Searchbar />,
-                         document.getElementsByClassName("outer listPosition"));
-        });
+        container.appendChild(nodeRendered);
     };
 
     return module;

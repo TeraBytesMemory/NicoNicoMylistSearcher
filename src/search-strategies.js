@@ -19,7 +19,7 @@
     };
 
     module.prototype.generateSearchMethod = function (andorOption, strategies) {
-        return _.partialRight(_searchMethod, andorOption, strategies);
+        return _.partial(_searchMethod, andorOption, strategies);
     };
 
     module.prototype.andOption = function (strategy, keywords, item) {

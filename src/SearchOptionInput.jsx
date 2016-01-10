@@ -40,7 +40,7 @@
             var checked = (this.props.initChecked) ? "checked" : "";
 
             return (
-                <label>
+                <label class='ext-search-option-input'>
                     <input
                 onChange={this.handleChange}
                 type={type}

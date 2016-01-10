@@ -12,7 +12,7 @@
 
     var _ = require('lodash');
 
-    var generateSearchMethod = require('./generate-search-method.js')
+    var generateSearchMethod = require('./search-strategies.js')
             .generateSearchMethod;
     var mylist = require('./mylist.js');
 
@@ -28,11 +28,16 @@
         return _searchMethod;
     };
 
+    module.prototype.getSearchResult = function(keywords, source) {
+        _.filter(source, _.partial(_searchMethod, keywords));
+    };
+
     module.prototype.updateSearchResult = function () {
         var source = mylist.getMyList();
         if (source) {
-            var result = _.filter(source, _searchMethod);
-            ResultList.setState({ searchResult: result });
+            var keywords = ""
+            var result = this.getSearchResult(keywords, source);
+            mylist.renderMyList(result);
         }
     };
 

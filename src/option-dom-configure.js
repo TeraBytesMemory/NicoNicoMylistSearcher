@@ -10,18 +10,22 @@
 
     var module = [
         {
+            ref: "and",
             andor: searchStrategies.andOption,
             name: "AND"
         },
         {
+            ref: "or",
             andor: searchStrategies.orOption,
             name: "OR"
         },
         {
+            ref: "title",
             strategy: searchStrategies.titleStrategy,
             name: "タイトル"
         },
         {
+            ref: "description",
             strategy: searchStrategies.myDescriptionStrategy,
             name: "説明文"
         }

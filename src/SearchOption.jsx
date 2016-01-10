@@ -32,7 +32,7 @@
 
         render: function () {
             return (
-                    <form>
+                    <form class='ext-search-option'>
                     {_.map(SearchOptionDOM, function (x) { return {x} })}
                     </form>
             );
