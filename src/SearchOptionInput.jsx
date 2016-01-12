@@ -1,7 +1,7 @@
-(function() {
+(function(Definition) {
 
     // use webpack
-    module.exports = new Definition();
+    module.exports = Definition;
 
 })(function() {
     'use strict';
@@ -12,27 +12,14 @@
     var module = React.createClass({
         propTypes: {
             andor: React.PropTypes.func,
-            initChecked: React.PropTypes.boolean,
+            checked: React.PropTypes.boolean,
+            handleChange: React.PropTypes.function,
             name: React.PropTypes.string.isRequired,
             strategy: React.PropTypes.func
         },
 
-        getInitialState: function() {
-            return { checked: false }
-        },
-
-        componentDidMount: function() {
-            var checked = !!this.props.initChecked;
-            this.setState({ checked: checked });
-        },
-
-        handleChange: function (e) {
-            this.setState({ checked: e.checked });
-            SearchOption.update();
-        },
-
         provide: function() {
-            return (this.state.checked) ? this.props.strategy : null;
+            return (this.refs.input.checked) ? this.props.strategy : null;
         },
 
         render: function() {
@@ -42,7 +29,8 @@
             return (
                 <label class='ext-search-option-input'>
                     <input
-                onChange={this.handleChange}
+                ref='input'
+                onChange={this.props.handleChange}
                 type={type}
                 checked={checked}
                     />

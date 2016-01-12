@@ -1,7 +1,8 @@
 (function (Definition) {
 
     // use webpack
-    module.exports = new Definition();
+    var Mod = Definition();
+    module.exports = new Mod();
 
 })(function () {
     'use strict';

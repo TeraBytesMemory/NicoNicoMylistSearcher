@@ -1,55 +1,54 @@
 describe('update search strategy', function() {
 
-    var React = require('react')
+    var React = require('react');
     var ReactTestUtils = require('react-addons-test-utils');
 
-    var SearchOption = require('./SearchOption.jsx');
-    var searchEngine = require('./search-engine.js');
-
-    var source = {};
+    var SearchOptionContainer = require('../../src/SearchOptionContainer.jsx');
+    var searchEngine = require('../../src/search-engine.js');
+    var ajax = require('./lib/ajax.js');
 
     beforeEach(function () {
-        this.el = React.createElement(searchEngine);
+        this.el = React.render(SearchOptionContainer,
+                               document.getElementsByTagName('body'));
         this.getInput = function (el, id) {
-            return el.refs[id].props.children;
+            return el.refs[id].refs.input;
         };
     });
 
     it('can switch', function() {
         var result = new Array(3);
 
-        // check 'And' and 'title'
-        ReactTestUtils.Simulate.click(this.getInput(this.el, "and"));
-        //ReactTestUtils.Simulate.click(this.getInput(this.el, "title"));
+        ajax.request('./lib/dummy-source.js').then(function (source) {
 
-        _.debounce(function() {
-            result[0] = searchEngine.getSearchResult(source);
-        }, 100);
+            // check 'And' and 'title'
+            ReactTestUtils.Simulate.click(this.getInput(this.el, "or"));
+            //ReactTestUtils.Simulate.click(this.getInput(this.el, "title"));
 
-        // check 'And' and 'description'
-        ReactTestUtils.Simulate.click(this.getInput(this.el, "title"));
-        ReactTestUtils.Simulate.click(this.getInput(this.el, "description"));
+            _.debounce(function() {
+                result[0] = searchEngine.getSearchResult(source);
+            }, 100);
 
-        _.debounce(function() {
-            result[1] = searchEngine.getSearchResult(source);
-        }, 100);
+            // check 'And' and 'description'
+            ReactTestUtils.Simulate.click(this.getInput(this.el, "title"));
+            ReactTestUtils.Simulate.click(this.getInput(this.el, "description"));
 
-        // check 'or' and 'title'
-        ReactTestUtils.Simulate.click(this.getInput(this.el, "title"));
-        ReactTestUtils.Simulate.click(this.getInput(this.el, "description"));
-        ReactTestUtils.Simulate.click(this.getInput(this.el, "or"));
+            _.debounce(function() {
+                result[1] = searchEngine.getSearchResult(source);
+            }, 100);
 
-        _.debounce(function() {
-            result[2] = searchEngine.getSearchResult(source);
-        }, 100);
+            // check 'or' and 'title'
+            ReactTestUtils.Simulate.click(this.getInput(this.el, "title"));
+            ReactTestUtils.Simulate.click(this.getInput(this.el, "description"));
+            ReactTestUtils.Simulate.click(this.getInput(this.el, "and"));
 
-        except(result[0].length).not.toEqual(15);
-        except(result[1].length).not.toEqual(17);
-        except(result[2].length).not.toEqual(19);
+            _.debounce(function() {
+                result[2] = searchEngine.getSearchResult(source);
+            }, 100);
+
+            expect(result[0].length).not.toEqual(7);
+            expect(result[1].length).not.toEqual(10);
+            expect(result[2].length).not.toEqual(3);
+        })
     });
 
-    it('is checked after initialize', function() {
-        except(this.getInput(this.el, "and").checked).toBeTruthy();
-        except(this.getInput(this.el, "title").checked).toBeTruthy();
-    });
 });

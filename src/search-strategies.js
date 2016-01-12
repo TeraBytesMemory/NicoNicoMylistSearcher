@@ -1,7 +1,8 @@
 (function (Definition) {
 
     // use webpack
-    module.exports = new Definition();
+    var Mod = Definition();
+    module.exports = new Mod();
 
 })(function () {
     'use strict';
@@ -34,13 +35,6 @@
 
     module.prototype.titleStrategy = function(keyword, item) {
         return item.item_data.indexOf(keyword) != -1;
-    };
-
-    module.prototype.tagsStrategy = function(keyword, item) {
-    };
-
-    module.prototype.videoDescriptionStrategy = function(keyword, item) {
-        return item.item_data.last_res_body.indexOf(keyword) != -1;
     };
 
     module.prototype.myDescriptionStrategy = function(keyword, item) {

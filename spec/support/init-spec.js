@@ -8,35 +8,30 @@ describe('load extension', function() {
     };
 
     // chrome extension
-    var tabs = function(callback) {
+    var getCurrent = function(callback) {
         var url = "http://www.nicovideo.jp/my/mylist/#/41876902"
         callback({ url: url });
     };
     var chrome = {
-        tabs: tabs
+        tabs: {
+            getCurrent: getCurrent
+        }
     };
 
     var container;
 
     // load modules
     beforeEach(function() {
-        container = document.createElement(
-            '<div class="outer listOption"></div>'
-        );
+        container = document.createElement('div');
+        container.setAttribute('class', 'outer listOption');
 
-        require('init.jsx');
+        require('../../src/init.jsx');
     });
-
-    var optionDOMConfigure = require('option-dom-configure.js');
 
     it('has a additional search bar', function() {
         expect(container.querySelectorAll('ext-search-option'))
             .toBeTruthy();
         expect(container.querySelectorAll('ext-search-bar'))
             .toBeTruthy();
-        expect(container
-               .querySelectorAll('ext-search-option-input')
-               .length)
-            .toEqual(optionDOMConfigure.length);
     });
 });

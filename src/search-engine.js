@@ -1,11 +1,8 @@
 (function (Definition) {
-    /**
-     * This module provides a instance.
-     */
-
 
     // use webpack
-    module.exports = new Definition();
+    var Mod = Definition();
+    module.exports = new Mod();
 
 })(function() {
     'use strict';
@@ -40,5 +37,7 @@
             mylist.renderMyList(result);
         }
     };
+
+    return module;
 
 });

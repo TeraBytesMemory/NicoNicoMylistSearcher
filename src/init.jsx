@@ -4,7 +4,7 @@
      */
 
     // use webpack
-    module.exports = new Definition();
+    module.exports = new Definition()();
 
 })(function() {
     'use strict';
@@ -13,7 +13,7 @@
 
     var mylist = require('./mylist.js')
     var Searchbar = require('./Searchbar.jsx');
-    var SearchOption = require('./SearchOption.jsx');
+    var SearchOptionContainer = require('./SearchOptionContainer.jsx');
 
     /**
      * @constructor
@@ -28,7 +28,12 @@
 
     module.prototype.init = function() {
         // render react DOM
-        var rendered = <div><SearchOption /><Searchbar /></div>;
+        var rendered = (
+                <div>
+                  <SearchOptionContainer />
+                  <Searchbar />
+                </div>
+        );
         var nodeRendered = React.findDOMNode(rendered);
         var container = mylist.getRenderTo();
 

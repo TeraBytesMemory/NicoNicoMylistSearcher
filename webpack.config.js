@@ -1,7 +1,7 @@
 module.exports = {
     entry: './src/init.jsx',
     output: {
-        filename: './build/bundle.js'
+        filename: './build/bundle.js',
     },
     module: {
         loaders: [
