@@ -6,8 +6,9 @@ describe('use API', function() {
         container = document.createElement('div');
         container.setAttribute('class', 'outer listOption');
         container.textContent = 'renderTo';
+        document.body.appendChild(container);
 
-        var text = mylist.getRenderTo().text;
+        var text = mylist.getRenderTo().textContent;
         expect(text).toEqual("renderTo");
     });
 });

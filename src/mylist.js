@@ -25,7 +25,7 @@
     };
 
     module.prototype.getRenderTo = function() {
-        return document.getElementsByClassName(_classRenderTo);
+        return document.getElementsByClassName(_classRenderTo)[0];
     };
 
     module.prototype.getMyList = function() {

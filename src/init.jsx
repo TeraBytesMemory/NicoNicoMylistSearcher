@@ -1,17 +1,17 @@
-(function(Definition) {
+(function (Definition) {
     /**
      * This module provides a instance;
      */
 
     // use webpack
-    module.exports = new Definition()();
+    module.exports = new Definition();
 
 })(function() {
     'use strict';
 
     var React = require('react');
 
-    var mylist = require('./mylist.js')
+    var mylist = require('./mylist.js');
     var Searchbar = require('./Searchbar.jsx');
     var SearchOptionContainer = require('./SearchOptionContainer.jsx');
 
@@ -20,7 +20,7 @@
      */
     var module = function() {
         chrome.tabs.getCurrent(function (tab) {
-            if (tab.url && mylist.isAble()) {
+            if (tab.url && mylist.isAble(tab.url)) {
                 this.init();
             }
         });

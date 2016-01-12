@@ -1,7 +1,9 @@
+// dummy chrome extension
+
 describe('load extension', function() {
 
     // define to pass for isAble()
-    var jQuery = "dummy";
+    global.jQuery = "dummy";
     // var window = {}
     window.my = {
         currentGroup: "dummy"
@@ -12,7 +14,7 @@ describe('load extension', function() {
         var url = "http://www.nicovideo.jp/my/mylist/#/41876902"
         callback({ url: url });
     };
-    var chrome = {
+    global.chrome = {
         tabs: {
             getCurrent: getCurrent
         }
