@@ -13,13 +13,18 @@
     var searchStrategies = require('./search-strategies.js');
 
     var module = React.createClass({
+        propTypes: {
+            searchEngine: React.PropTypes.object
+        },
+
         render: function() {
             return (
-                    <SearchOption>
+                    <SearchOption searchEngine={this.props.searchEngine}>
                       <SearchOptionInput
                        andor={searchStrategies.andOption}
                        name='AND'
                        ref='and'
+                       checked='true'
                       />
                       <SearchOptionInput
                        andor={searchStrategies.orOption}
@@ -30,6 +35,7 @@
                        strategy={searchStrategies.titleStrategy}
                        name='タイトル'
                        ref='title'
+                       checked='true'
                       />
                       <SearchOptionInput
                        strategy={searchStrategies.myDescriptionStrategy}

@@ -8,13 +8,15 @@
 
     var React = require('react');
 
-    var searchEngine = require('./search-engine.js');
+    //var SearchEngine = require('./search-engine.js');
 
     var module = React.createClass({
+        propTypes: {
+            searchEngine: React.PropTypes.object
+        },
 
         handleChange: function (e) {
-            searchEngine.updateSearchResult();
-            this.setState({ text: e.target.value });
+            this.props.searchEngine.updateSearchResult(e.target.vaule);
         },
 
         rendar: function () {

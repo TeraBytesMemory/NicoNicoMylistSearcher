@@ -1,8 +1,7 @@
 (function (Definition) {
 
     // use webpack
-    var Mod = Definition();
-    module.exports = new Mod();
+    module.exports = Definition();
 
 })(function() {
     'use strict';
@@ -11,30 +10,31 @@
 
     var generateSearchMethod = require('./search-strategies.js')
             .generateSearchMethod;
-    var mylist = require('./mylist.js');
+    var MylistAPI = require('./mylist/MylistAPI.js');
 
-    var _searchMethod;
-
-    var module = function() {};
+    var module = function(document, window) {
+        this._mylistAPI = new MylistAPI(document, window);
+    };
 
     module.prototype.updateMethod = function(andorOption, strategies) {
-        _searchMethod = generateSearchMethod(andorOption, strategies);
+        if (andorOption && strategies) {
+            this._searchMethod = generateSearchMethod(andorOption, strategies);
+        }
     };
 
     module.prototype.getMethod = function() {
-        return _searchMethod;
+        return this._searchMethod;
     };
 
     module.prototype.getSearchResult = function(keywords, source) {
-        _.filter(source, _.partial(_searchMethod, keywords));
+        _.filter(source, _.partial(this._searchMethod, keywords));
     };
 
-    module.prototype.updateSearchResult = function () {
-        var source = mylist.getMyList();
+    module.prototype.updateSearchResult = function (keywords) {
+        var source = this._mylistAPI.getMyList();
         if (source) {
-            var keywords = ""
-            var result = this.getSearchResult(keywords, source);
-            mylist.renderMyList(result);
+            var result = this.getSearchResult(keywords.split(/ ||　/), source);
+            this._mylistAPI.renderMyList(result);
         }
     };
 

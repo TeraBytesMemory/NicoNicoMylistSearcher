@@ -1,15 +1,14 @@
 (function (Definition) {
 
     // use webpack
-    var Mod = Definition();
-    module.exports = new Mod();
+    module.exports = Definition();
 
 })(function () {
     'use strict';
 
     var _ = require('lodash');
 
-    var module = function () {};
+    var module = {};
 
     var _searchMethod = function (andorOption, strategies, keywords, item) {
         for (var i=0; i<strategies.length; i++) {
@@ -19,25 +18,25 @@
         return false;
     };
 
-    module.prototype.generateSearchMethod = function (andorOption, strategies) {
+    module.generateSearchMethod = function (andorOption, strategies) {
         return _.partial(_searchMethod, andorOption, strategies);
     };
 
-    module.prototype.andOption = function (strategy, keywords, item) {
+    module.andOption = function (strategy, keywords, item) {
         var f = _.partialRight(strategy, item);
         return _.every(_.map(f, keywords));
     };
 
-    module.prototype.orOption = function (strategy, keywords, item) {
+    module.orOption = function (strategy, keywords, item) {
         var f = _.partialRight(strategy, item);
         return _.any(_.map(f, keywords));
     };
 
-    module.prototype.titleStrategy = function(keyword, item) {
+    module.titleStrategy = function(keyword, item) {
         return item.item_data.indexOf(keyword) != -1;
     };
 
-    module.prototype.myDescriptionStrategy = function(keyword, item) {
+    module.myDescriptionStrategy = function(keyword, item) {
         return item.description.indexOf(keyword) != -1;
     };
 

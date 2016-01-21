@@ -1,43 +1,57 @@
 (function (Definition) {
     /**
-     * This module provides a instance;
+     * This is main script.
      */
 
     // use webpack
-    module.exports = new Definition();
+    module.exports = Definition();
 
 })(function() {
     'use strict';
 
     var React = require('react');
 
-    var mylist = require('./mylist.js');
+    var MylistDOM = require('./mylist/MylistDOM.js');
     var Searchbar = require('./Searchbar.jsx');
     var SearchOptionContainer = require('./SearchOptionContainer.jsx');
+    var SearchEngine = require('./search-engine.js');
 
-    /**
-     * @constructor
-     */
     var module = function() {
-        chrome.tabs.getCurrent(function (tab) {
-            if (tab.url && mylist.isAble(tab.url)) {
-                this.init();
-            }
-        });
+
+        this._mylist = genMylist();
+        if (!this._mylist ||
+            !this._mylist.isAble()) return false;
+
+        console.log('loading nicovideo searchbar extension...');
+
+        this._mylist.renderedObserver(this.renderSearchbar);
     };
 
-    module.prototype.init = function() {
+    module.prototype.renderSearchbar = function() {
+        if (!document.getElementsByClassName('searchbar-extension'))
+            return false;
+
+        console.log('loading searchbar...');
+
+        var _searchEngine = new SearchEngine(document, window);
+
         // render react DOM
         var rendered = (
-                <div>
-                  <SearchOptionContainer />
-                  <Searchbar />
+                <div class="searchbar-extension">
+                <SearchOptionContainer searchEngine={_searchEngine} />
+                <Searchbar searchEngine={_searchEngine} />
                 </div>
         );
-        var nodeRendered = React.findDOMNode(rendered);
-        var container = mylist.getRenderTo();
 
-        container.appendChild(nodeRendered);
+        var container = this._mylist.getRenderTo();
+        container.appendChild(rendered);
+
+        // initSearchOption
+        _searchEngine.updateMethod();
+    };
+
+    var genMylist = function() {
+        return (document && window) ? new MylistDOM(document, window) : false;
     };
 
     return module;

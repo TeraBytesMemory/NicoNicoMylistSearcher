@@ -8,7 +8,7 @@
     var cloneWithProps = require('react-addons-clone-with-props');
     var _ = require('lodash');
 
-    var searchEngine = require('./search-engine.js');
+    //var searchEngine = require('./search-engine.js');
     var SearchOptionInput = require('./SearchOptionInput.jsx');
 
     var module = React.createClass({
@@ -43,7 +43,7 @@
                         return child.props.strategy;
                     });
 
-            searchEngine.updateMethod(andorOption, strategies);
+            this.props.searchEngine.updateMethod(andorOption, strategies);
         },
 
         render: function () {
