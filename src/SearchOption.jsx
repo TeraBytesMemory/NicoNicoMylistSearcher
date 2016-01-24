@@ -5,25 +5,28 @@
     'use strict';
 
     var React = require('react');
-    var cloneWithProps = require('react-addons-clone-with-props');
     var _ = require('lodash');
 
     //var searchEngine = require('./search-engine.js');
     var SearchOptionInput = require('./SearchOptionInput.jsx');
 
     var module = React.createClass({
+        propTypes: {
+            searchEngine: React.PropTypes.object
+        },
 
         renderChildren: function() {
+            console.log("load inputs");
             return React.children.map(
                 this.props.children,
-                function(child, idx) {
+                function(child) {
                     if (child.type == SearchOptionInput.type) {
-                        return cloneWithProps(child, {
-                            handleChange: this.update.bind(this),
-                            ref: idx
-                        })
+                        console.log("find search option input");
+                        return React.cloneElement(child, {
+                            handleChange: this.update
+                        });
                     } else {
-                        return child
+                        return child;
                     }
                 }.bind(this));
         },
@@ -47,6 +50,7 @@
         },
 
         render: function () {
+            console.log("load inputs");
             return (
                     <form class='ext-search-option'>
                     {this.renderChildren()}

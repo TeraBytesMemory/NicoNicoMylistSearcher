@@ -4,33 +4,23 @@ describe('load extension', function() {
 
     // define to pass for isAble()
     global.jQuery = "dummy";
-    // var window = {}
+    global.document.URL = "http://www.nicovideo.jp/my/mylist";
     window.my = {
         currentGroup: "dummy"
     };
 
-    // chrome extension
-    var getCurrent = function(callback) {
-        var url = "http://www.nicovideo.jp/my/mylist/#/41876902"
-        callback({ url: url });
-    };
-    global.chrome = {
-        tabs: {
-            getCurrent: getCurrent
-        }
-    };
-
     var container;
+    var Init = require('../../src/init.jsx');
 
     // load modules
     beforeEach(function() {
         container = document.createElement('div');
         container.setAttribute('class', 'outer listOption');
-
-        require('../../src/init.jsx');
     });
 
     it('has a additional search bar', function() {
+        new Init().renderSearchbar();
+
         expect(container.querySelectorAll('ext-search-option'))
             .toBeTruthy();
         expect(container.querySelectorAll('ext-search-bar'))

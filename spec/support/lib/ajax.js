@@ -1,14 +1,13 @@
-(function (Definition) {
+(function (definition) {
 
     // use webpack
-    module.exports = new Definition();
-
+    module.exports = definition();
 
 })(function () {
 
     var module = function () {};
 
-    module.prototype.request = function(url) {
+    module.request = function(url) {
         return new Promise(function(resolve, reject) {
 
             var request = new XMLHttpRequest();
@@ -31,6 +30,8 @@
             request.send();
         });
     };
+
+    return module;
 
 });
 

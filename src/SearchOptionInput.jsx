@@ -25,6 +25,7 @@
         render: function() {
             var type = (this.props.strategy) ? "checkbox": "radio";
             var checked = (this.props.checked) ? "checked" : "";
+            console.log("load input...");
 
             return (
                 <label class='ext-search-option-input'>

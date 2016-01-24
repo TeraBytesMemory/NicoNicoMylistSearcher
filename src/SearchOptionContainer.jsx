@@ -1,7 +1,7 @@
 (function (Definition) {
 
     // use webpack
-    module.exports = new Definition;
+    module.exports = Definition;
 
 })(function () {
     'use strict';
@@ -18,6 +18,7 @@
         },
 
         render: function() {
+            console.log("load search option container");
             return (
                     <SearchOption searchEngine={this.props.searchEngine}>
                       <SearchOptionInput
