@@ -1,5 +1,5 @@
 (function (Definition) {
-    module.exports = Definition;
+    module.exports = Definition();
 }
 )(function () {
     'use strict';
@@ -17,7 +17,7 @@
 
         renderChildren: function() {
             console.log("load inputs");
-            return React.children.map(
+            return React.Children.map(
                 this.props.children,
                 function(child) {
                     if (child.type == SearchOptionInput.type) {
@@ -50,7 +50,6 @@
         },
 
         render: function () {
-            console.log("load inputs");
             return (
                     <form class='ext-search-option'>
                     {this.renderChildren()}

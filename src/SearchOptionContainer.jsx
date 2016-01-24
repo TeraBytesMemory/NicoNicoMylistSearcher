@@ -1,7 +1,7 @@
 (function (Definition) {
 
     // use webpack
-    module.exports = Definition;
+    module.exports = Definition();
 
 })(function () {
     'use strict';
@@ -18,14 +18,13 @@
         },
 
         render: function() {
-            console.log("load search option container");
             return (
                     <SearchOption searchEngine={this.props.searchEngine}>
                       <SearchOptionInput
                        andor={searchStrategies.andOption}
                        name='AND'
                        ref='and'
-                       checked='true'
+                       checked={true}
                       />
                       <SearchOptionInput
                        andor={searchStrategies.orOption}
@@ -36,7 +35,7 @@
                        strategy={searchStrategies.titleStrategy}
                        name='タイトル'
                        ref='title'
-                       checked='true'
+                       checked={true}
                       />
                       <SearchOptionInput
                        strategy={searchStrategies.myDescriptionStrategy}
