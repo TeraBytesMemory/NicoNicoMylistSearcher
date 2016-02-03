@@ -15,7 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'spec/support/*spec.js',
+        'spec/support/*spec.js',
+        'spec/support/*spec.jsx',
 //      'src/*.js',
 //      'src/*.jsx'
     ],
@@ -29,7 +30,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'spec/support/*spec.js': ['webpack', 'source']
+        'spec/support/*spec.js': ['webpack', 'source'],
+        'spec/support/*spec.jsx': ['webpack', 'source']
     },
 
     // test results reporter to use

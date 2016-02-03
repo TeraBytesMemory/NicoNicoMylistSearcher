@@ -12,17 +12,17 @@
      * @constant
      */
     var _nicovideoUrl = "http://www.nicovideo.jp/";
-    var _tabPrefix = _nicovideoUrl + "my/mylist/";
+    var _tabPrefix = _nicovideoUrl + "my/mylist";
     // 名前変更 $SearchOption とか
-    var _classRenderTo = 'outer listOption';
+    var _classRenderTo = 'listOption';
 
-    var module = function(window, document) {
+    var module = function(document, window) {
         this.document = document;
         this.window = window;
     };
 
     module.prototype.isAble = function () {
-        if (!this.document.URL.indexOf(_tabPrefix)) {
+        if (this.document.URL.indexOf(_tabPrefix) != 0) {
             console.log('This page is not nicovideo mylist.');
             return false;
         }
@@ -44,12 +44,20 @@
     };
 
     var _findClassByObserved = function(findClass, callback, mutation) {
-        _.forEach(mutation.addedNodes,
-                  function(node) {
-                      if (node.classList.contains(findClass)) {
-                          callback();
-                      }
-                  });
+        _.chain(mutation)
+            .map(function(m) {
+                return m.addedNodes;
+            })
+            .forEach(
+                function(nodes) {
+                    for (var i=0;  i<nodes.length; i++) {
+                        nodes[i].classList
+                            && nodes[i].classList.contains(findClass)
+                            && callback();
+
+                    }
+                })
+            .commit();
     };
 
     module.prototype.getRenderTo = function() {
@@ -59,3 +67,9 @@
     return module;
 
 });
+
+
+
+
+
+

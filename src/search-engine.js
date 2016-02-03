@@ -14,6 +14,7 @@
 
     var module = function(document, window) {
         this._mylistAPI = new MylistAPI(document, window);
+        this._searchMethod;
     };
 
     module.prototype.updateMethod = function(andorOption, strategies) {
@@ -27,13 +28,15 @@
     };
 
     module.prototype.getSearchResult = function(keywords, source) {
-        _.filter(source, _.partial(this._searchMethod, keywords));
+        keywords = keywords.split(/\s/);
+        source = (_.isArray(source)) ? source : source.mylistitem;
+        return _.filter(source, this._searchMethod(keywords));
     };
 
     module.prototype.updateSearchResult = function (keywords) {
         var source = this._mylistAPI.getMyList();
         if (source) {
-            var result = this.getSearchResult(keywords.split(/ ||　/), source);
+            var result = this.getSearchResult(keywords, source);
             this._mylistAPI.renderMyList(result);
         }
     };

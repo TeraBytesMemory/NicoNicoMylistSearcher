@@ -18,8 +18,21 @@
             strategy: React.PropTypes.func
         },
 
+        getInitialState: function() {
+            return {
+                checked: this.props.checked
+            };
+        },
+
         provide: function() {
             return (this.refs.input.checked) ? this.props.strategy : null;
+        },
+
+        handleChangeBefore: function(callback) {
+            return function() {
+                this.setState({ checked: this.refs.input.checked },
+                             callback);
+            };
         },
 
         render: function() {

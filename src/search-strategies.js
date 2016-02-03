@@ -19,21 +19,21 @@
     };
 
     module.generateSearchMethod = function (andorOption, strategies) {
-        return _.partial(_searchMethod, andorOption, strategies);
+        return _.curry(_searchMethod)(andorOption, strategies);
     };
 
     module.andOption = function (strategy, keywords, item) {
-        var f = _.partialRight(strategy, item);
-        return _.every(_.map(f, keywords));
+        var f = _.curry(strategy)(_, item);
+        return _.every(_.map(keywords, f));
     };
 
     module.orOption = function (strategy, keywords, item) {
-        var f = _.partialRight(strategy, item);
-        return _.any(_.map(f, keywords));
+        var f = _.curry(strategy)(_, item);
+        return _.any(_.map(keywords, f));
     };
 
     module.titleStrategy = function(keyword, item) {
-        return item.item_data.indexOf(keyword) != -1;
+        return item.item_data.title.indexOf(keyword) != -1;
     };
 
     module.myDescriptionStrategy = function(keyword, item) {

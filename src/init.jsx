@@ -1,10 +1,10 @@
-(function (Definition) {
+(function (definition) {
     /**
      * This is main script.
      */
 
     // use webpack
-    module.exports = Definition();
+    definition()();
 
 })(function() {
     'use strict';
@@ -16,18 +16,20 @@
     var SearchOptionContainer = require('./SearchOptionContainer.jsx');
     var SearchEngine = require('./search-engine.js');
 
+    var _mylist;
+
     var module = function() {
 
-        this._mylist = genMylist();
-        if (!this._mylist ||
-            !this._mylist.isAble()) return false;
+        _mylist = _genMylist();
+        if (!_mylist ||
+            !_mylist.isAble()) return false;
 
         console.log('loading nicovideo searchbar extension...');
 
-        this._mylist.renderedObserver(this.renderSearchbar);
+        _mylist.renderedObserver(_renderSearchbar);
     };
 
-    module.prototype.renderSearchbar = function() {
+    var _renderSearchbar = function() {
         if (!document.getElementsByClassName('searchbar-extension'))
             return false;
 
@@ -43,14 +45,14 @@
                 </div>
         );
 
-        var container = this._mylist.getRenderTo();
+        var container = _mylist.getRenderTo();
         container.appendChild(rendered);
 
         // initSearchOption
         _searchEngine.updateMethod();
     };
 
-    var genMylist = function() {
+    var _genMylist = function() {
         return (document && window) ? new MylistDOM(document, window) : false;
     };
 

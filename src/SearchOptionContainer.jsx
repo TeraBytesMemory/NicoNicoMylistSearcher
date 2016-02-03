@@ -7,6 +7,7 @@
     'use strict';
 
     var React = require('react');
+    var _ = require('lodash');
 
     var SearchOption = require('./SearchOption.jsx');
     var SearchOptionInput = require('./SearchOptionInput.jsx');
@@ -17,9 +18,16 @@
             searchEngine: React.PropTypes.object
         },
 
+        componentDidMount: function() {
+            this.refs.container.update();
+        },
+
         render: function() {
             return (
-                    <SearchOption searchEngine={this.props.searchEngine}>
+                    <SearchOption
+                searchEngine={this.props.searchEngine}
+                ref='container'
+                    >
                       <SearchOptionInput
                        andor={searchStrategies.andOption}
                        name='AND'

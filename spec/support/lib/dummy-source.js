@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
     "_comment": [
         "queryA in description: 7",
         "queryA in title: 10",

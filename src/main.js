@@ -1,1 +1,1 @@
-new require('./init.jsx');
+new require('./init.jsx')();
