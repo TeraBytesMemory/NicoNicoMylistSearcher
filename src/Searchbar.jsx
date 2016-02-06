@@ -1,7 +1,7 @@
-(function (Definition) {
+(function (definition) {
 
     // use webpack
-    module.exports = Definition;
+    module.exports = definition();
 
 })(function () {
     'use strict';
@@ -19,7 +19,7 @@
             this.props.searchEngine.updateSearchResult(e.target.vaule);
         },
 
-        rendar: function () {
+        render: function () {
             return (
                     <div class='ext-search-bar'>
                     <input

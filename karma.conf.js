@@ -17,6 +17,8 @@ module.exports = function(config) {
     files: [
         'spec/support/*spec.js',
         'spec/support/*spec.jsx',
+        '!spec/support/flycheck_*spec.js',
+        '!spec/support/flycheck_*spec.jsx',
 //      'src/*.js',
 //      'src/*.jsx'
     ],

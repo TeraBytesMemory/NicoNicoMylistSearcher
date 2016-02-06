@@ -10,6 +10,7 @@
     'use strict';
 
     var React = require('react');
+    var _ = require('lodash');
 
     var MylistDOM = require('./mylist/MylistDOM.js');
     var Searchbar = require('./Searchbar.jsx');
@@ -17,12 +18,15 @@
     var SearchEngine = require('./search-engine.js');
 
     var _mylist;
+    var _searchEngine;
 
     var module = function() {
 
-        _mylist = _genMylist();
-        if (!_mylist ||
-            !_mylist.isAble()) return false;
+        _mylist = new MylistDOM(document, window);
+        _searchEngine = new SearchEngine(jQuery, my);
+
+        if (!_mylist.isAble() ||
+            !_searchEngine.isAble()) return false;
 
         console.log('loading nicovideo searchbar extension...');
 
@@ -30,30 +34,22 @@
     };
 
     var _renderSearchbar = function() {
-        if (!document.getElementsByClassName('searchbar-extension'))
-            return false;
-
-        console.log('loading searchbar...');
-
-        var _searchEngine = new SearchEngine(document, window);
 
         // render react DOM
         var rendered = (
-                <div class="searchbar-extension">
+                <div>
                 <SearchOptionContainer searchEngine={_searchEngine} />
                 <Searchbar searchEngine={_searchEngine} />
                 </div>
         );
 
-        var container = _mylist.getRenderTo();
-        container.appendChild(rendered);
+        var $searchbarExt = _mylist.genContainer();
+        React.render(rendered, $searchbarExt);
 
         // initSearchOption
         _searchEngine.updateMethod();
-    };
 
-    var _genMylist = function() {
-        return (document && window) ? new MylistDOM(document, window) : false;
+        return true;
     };
 
     return module;

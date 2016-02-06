@@ -12,13 +12,13 @@
     var _tabPrefix = _nicovideoUrl + "my/mylist/";
     var _classRenderTo = 'outer listOption';
 
-    var module = function(window, document) {
-        this.document = document;
-        this.window = window;
+    var module = function(jQuery, my) {
+        this.jQuery = jQuery;
+        this.my = my;
     };
 
     module.prototype.isAble = function () {
-        if (!window.jQuery) {
+        if (!this.jQuery) {
             console.error('cannot find window.jQuery in a mylist tab.');
             return false;
         }
@@ -31,12 +31,12 @@
     };
 
     module.prototype.getMyList = function() {
-        return this.window.my.currentItems;
+        return this.my.currentItems;
     };
 
     module.prototype.renderMyList = function(itemlist) {
-        var mode = (this.window.my.currentGroup) ? "mylist" : "deflist";
-        var group = this.window.my.currentGroup;
+        var mode = (this.my.currentGroup) ? "mylist" : "deflist";
+        var group = this.my.currentGroup;
 
         window.jQuery.event.trigger("nicoPageChanged",
                              [mode, group, itemlist]);

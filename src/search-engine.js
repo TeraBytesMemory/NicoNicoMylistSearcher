@@ -12,9 +12,13 @@
             .generateSearchMethod;
     var MylistAPI = require('./mylist/MylistAPI.js');
 
-    var module = function(document, window) {
-        this._mylistAPI = new MylistAPI(document, window);
+    var module = function(jQuery, my) {
+        this._mylistAPI = new MylistAPI(jQuery, my);
         this._searchMethod;
+    };
+
+    module.prototype.isAble = function() {
+        return this._mylistAPI.isAble();
     };
 
     module.prototype.updateMethod = function(andorOption, strategies) {

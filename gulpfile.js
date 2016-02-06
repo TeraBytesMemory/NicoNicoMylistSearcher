@@ -6,12 +6,16 @@ var Karma = require('karma').Server;
 
 
 gulp.task('default', function () {
-    gulp.watch(['./src/*.js', './src/*.jsx'], ['build']);
-    gulp.watch(['./spec/support/*spec.jsx', './spec/support/*spec.js'], ['test']);
+    gulp.watch(['./src/*.js', './src/*.jsx',
+                '!/src/flycheck*.js', '!/src/flycheck*.jsx'], ['build']);
+    gulp.watch(['./spec/support/*spec.js', './spec/support/*spec.jsx',
+                '!/spec/support/flycheck_*.js', '!/spec/support/flycheck_*.jsx'],
+               ['test']);
 });
 
 gulp.task('build', function () {
-    return gulp.src(['./src/*.js', './src/*.jsx'])
+    return gulp.src(['./src/*.js', './src/*.jsx',
+                     './src/*/*.js', './src/*/*.jsx'])
         .pipe($.plumber())
         .pipe($.webpack(webpackConfig))
         .pipe(gulp.dest('build/'));

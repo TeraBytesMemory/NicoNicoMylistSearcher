@@ -34,42 +34,44 @@
         var observeDOM = this.document.getElementById('mylist');
         var option = { childList: true, subtree: true };
 
-        var findRenderdTo = _.curry(_findClassByObserved);
+        var findRenderdTo = _.curry(_findClassByObserved.bind(this));
         findRenderdTo = findRenderdTo(_classRenderTo, callback);
 
-        var observer = new MutationObserver(findRenderdTo);
-        observer.observe(observeDOM, option);
+        this.observer = new MutationObserver(findRenderdTo);
+        this.observer.observe(observeDOM, option);
 
-        return observer;
+        return this.observer;
     };
+
 
     var _findClassByObserved = function(findClass, callback, mutation) {
-        _.chain(mutation)
-            .map(function(m) {
-                return m.addedNodes;
-            })
-            .forEach(
-                function(nodes) {
-                    for (var i=0;  i<nodes.length; i++) {
-                        nodes[i].classList
-                            && nodes[i].classList.contains(findClass)
-                            && callback();
+        var $searchbarExt = this.getSearchbarExt();
 
-                    }
-                })
-            .commit();
+        if(this.document.getElementsByClassName(findClass).length != 0
+           && $searchbarExt.length == 0
+           && callback()) {
+            this.observer.disconnect();
+        };
     };
 
-    module.prototype.getRenderTo = function() {
-        return this.document.getElementById(_classRenderTo);
+    module.prototype.genContainer = function() {
+        var $searchbarExt = this.getSearchbarExt();
+        if ($searchbarExt.length != 0) return $searchbarExt[0];
+
+        var container = this.document.createElement('div');
+        container.className = 'searchbar-extension';
+
+        var renderTo = this.document.getElementsByClassName(_classRenderTo)[0];
+        renderTo.appendChild(container);
+
+        return container;
+    };
+
+    module.prototype.getSearchbarExt = function() {
+        return this.document
+                .getElementsByClassName('searchbar-extension');
     };
 
     return module;
 
 });
-
-
-
-
-
-
