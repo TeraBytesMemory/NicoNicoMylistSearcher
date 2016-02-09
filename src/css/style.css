@@ -1,0 +1,61 @@
+#searchbar-ext {
+  margin-right: -360px;
+
+  padding: 0;
+  border: solid 2px black;
+
+  position: fixed;
+  top: 120px;
+  right: 0;
+
+  overflow: auto;
+
+  transition: all 0.5s ease 0s;
+}
+
+#searchbar-ext.active {
+  margin-right: -20px;
+}
+
+#searchbar-ext>.slider {
+  background-color: black;
+  color: white;
+
+  text-align: center;
+
+  padding: 8px;
+  height: 204px;
+
+  cursor: pointer;
+  -webkit-writing-mode: vertical-rl;
+  min-height: auto;
+
+  transition: all 1.0s ease 0s;
+}
+
+#searchbar-ext>.slider:hover {
+  color: #ffaaaa;
+}
+
+#searchbar-ext>.slider>span:after {
+  content: "▶";
+  margin-top: 8px;
+  font-size: 20px;
+}
+#searchbar-ext.active>.slider>span:after {
+  content: "◀";
+}
+
+#searchbar-ext>.contents {
+  position: relative;
+  width: 328px;
+  height: 188px;
+
+  padding: 16px;
+
+  background-color: white;
+}
+
+#searchbar-ext > div {
+  float: left;
+}

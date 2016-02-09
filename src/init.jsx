@@ -13,41 +13,38 @@
     var _ = require('lodash');
 
     var MylistDOM = require('./mylist/MylistDOM.js');
-    var Searchbar = require('./Searchbar.jsx');
-    var SearchOptionContainer = require('./SearchOptionContainer.jsx');
-    var SearchEngine = require('./search-engine.js');
+    var mylistAPI = require('./mylist/MylistAPI.js');
 
-    var _mylist;
-    var _searchEngine;
+    var SearchContainer = require('./SearchContainer.jsx');
+
+    var _mylistDOM;
+    var _mylistAPI;
 
     var module = function() {
 
-        _mylist = new MylistDOM(document, window);
-        _searchEngine = new SearchEngine(jQuery, my);
+        _mylistDOM = new MylistDOM(document, window);
+        _mylistAPI = new mylistAPI(jQuery, my);
 
-        if (!_mylist.isAble() ||
-            !_searchEngine.isAble()) return false;
+        if (!_mylistDOM.isAble()) return false;
 
         console.log('loading nicovideo searchbar extension...');
 
-        _mylist.renderedObserver(_renderSearchbar);
+        _mylistDOM.renderedObserver(_renderSearchbar);
     };
 
     var _renderSearchbar = function() {
+        if (!_mylistAPI.isAble()) return false;
 
         // render react DOM
         var rendered = (
-                <div>
-                <SearchOptionContainer searchEngine={_searchEngine} />
-                <Searchbar searchEngine={_searchEngine} />
-                </div>
+                <SearchContainer jQuery={jQuery} my={my} />
         );
 
-        var $searchbarExt = _mylist.genContainer();
+        var $searchbarExt = _mylistDOM.genContainer();
         React.render(rendered, $searchbarExt);
 
         // initSearchOption
-        _searchEngine.updateMethod();
+        _mylistAPI.updateMethod();
 
         return true;
     };

@@ -38,8 +38,8 @@
         var mode = (this.my.currentGroup) ? "mylist" : "deflist";
         var group = this.my.currentGroup;
 
-        window.jQuery.event.trigger("nicoPageChanged",
-                             [mode, group, itemlist]);
+        this.jQuery.event.trigger("nicoPageChanged",
+                                  [mode, group, itemlist]);
     };
 
     return module;

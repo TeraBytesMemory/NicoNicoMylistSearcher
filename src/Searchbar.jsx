@@ -16,7 +16,7 @@
         },
 
         handleChange: function (e) {
-            this.props.searchEngine.updateSearchResult(e.target.vaule);
+            this.props.searchEngine.updateSearchResult(e.target.value);
         },
 
         render: function () {
