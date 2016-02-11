@@ -1,7 +1,6 @@
 (function (definition) {
     module.exports = definition();
-}
-)(function () {
+})(function () {
     'use strict';
 
     var React = require('react');

@@ -28,13 +28,6 @@
             return (this.refs.input.checked) ? this.props.strategy : null;
         },
 
-        handleChangeBefore: function(callback) {
-            return function() {
-                this.setState({ checked: this.refs.input.checked },
-                             callback);
-            };
-        },
-
         render: function() {
             var type = (this.props.strategy) ? "checkbox": "radio";
             var checked = (this.props.checked) ? "checked" : "";
@@ -45,7 +38,8 @@
                 ref='input'
                 onChange={this.props.handleChange}
                 type={type}
-                checked={checked}
+                name={type}
+                defaultChecked={this.props.checked}
                     />
                     {this.props.name}
                 </label>

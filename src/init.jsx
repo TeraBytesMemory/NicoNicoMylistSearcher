@@ -13,17 +13,17 @@
     var _ = require('lodash');
 
     var MylistDOM = require('./mylist/MylistDOM.js');
-    var mylistAPI = require('./mylist/MylistAPI.js');
+    var SearchEngine = require('./search-engine.js');
 
     var SearchContainer = require('./SearchContainer.jsx');
 
     var _mylistDOM;
-    var _mylistAPI;
+    var _searchEngine;
 
     var module = function() {
 
         _mylistDOM = new MylistDOM(document, window);
-        _mylistAPI = new mylistAPI(jQuery, my);
+        _searchEngine = new SearchEngine(jQuery, my);
 
         if (!_mylistDOM.isAble()) return false;
 
@@ -33,18 +33,15 @@
     };
 
     var _renderSearchbar = function() {
-        if (!_mylistAPI.isAble()) return false;
+        if (!_searchEngine.isAble()) return false;
 
         // render react DOM
         var rendered = (
-                <SearchContainer jQuery={jQuery} my={my} />
+                <SearchContainer searchEngine={_searchEngine} />
         );
 
         var $searchbarExt = _mylistDOM.genContainer();
         React.render(rendered, $searchbarExt);
-
-        // initSearchOption
-        _mylistAPI.updateMethod();
 
         return true;
     };

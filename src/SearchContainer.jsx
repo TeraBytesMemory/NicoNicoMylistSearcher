@@ -10,23 +10,23 @@
     var _ = require('lodash');
 
     var Searchbar = require('./Searchbar.jsx');
+    var SearchOptionContainer = require('./SearchOptionContainer.jsx');
     var SearchEngine = require('./search-engine.js');
 
     require('./css/style.css');
 
     var module = React.createClass({
         propTypes: {
-            jQuery : React.PropTypes.object.isRequired,
-            my : React.PropTypes.object.isRequired
+            searchEngine: React.PropTypes.object.isRequired
         },
 
         handleClick: function() {
-            var $searchbarExt = this.refs.searcbar_ext;
+            var $searchbarExt = this.refs.searchbar_ext;
 
-            if (this.classList) {
-                this.classList.toggle('active');
+            if ($searchbarExt.classList) {
+                $searchbarExt.classList.toggle('active');
             } else {
-                var classes = this.className.split(' ');
+                var classes = $searchbarExt.className.split(' ');
                 var existingIndex = classes.indexOf(className);
 
                 if (existingIndex >= 0)
@@ -34,22 +34,25 @@
                 else
                     classes.push(className);
 
-                this.className = classes.join(' ');
+                $searchbarExt.className = classes.join(' ');
             }
         },
 
-        render: function() {
-            var searchEngine = new SearchEngine(this.props.jQuery,
-                                                this.props.my);
+        componentDidMount: function() {
+            setTimeout(function() {
+                this.refs.searchbar_ext.style.width = "auto";
+            }.bind(this), 0);
+        },
 
+        render: function() {
             return(
                     <div id="searchbar-ext" ref="searchbar_ext">
-                      <div class="slider" onClick={this.handleClick}>
+                      <div className="slider" onClick={this.handleClick}>
                         <span>Search Mylist</span>
                       </div>
-                      <div class="contents">
-                        <SearchOptionContainer searchEngine={searchEngine} />
-                        <Searchbar searchEngine={searchEngine} />
+                      <div className="contents">
+                        <SearchOptionContainer searchEngine={this.props.searchEngine} />
+                        <Searchbar searchEngine={this.props.searchEngine} />
                       </div>
                     </div>
             );

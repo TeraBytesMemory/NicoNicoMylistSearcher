@@ -1,20 +1,23 @@
 #searchbar-ext {
-  margin-right: -360px;
-
+  margin-right: -280px;
   padding: 0;
+  width: 300px;
+
   border: solid 2px black;
 
   position: fixed;
   top: 120px;
   right: 0;
 
-  overflow: auto;
+  overflow: hidden;
 
   transition: all 0.5s ease 0s;
+
+  z-index: 99;
 }
 
 #searchbar-ext.active {
-  margin-right: -20px;
+  margin-right: -10px;
 }
 
 #searchbar-ext>.slider {
@@ -24,9 +27,12 @@
   text-align: center;
 
   padding: 8px;
-  height: 204px;
+  height: 104px;
+
+  border-right: solid 2px black;
 
   cursor: pointer;
+  writing-mode: vertical-rl;
   -webkit-writing-mode: vertical-rl;
   min-height: auto;
 
@@ -34,24 +40,26 @@
 }
 
 #searchbar-ext>.slider:hover {
-  color: #ffaaaa;
+  color: black;
+  background-color: white;
 }
 
 #searchbar-ext>.slider>span:after {
-  content: "▶";
+  content: "◀";
   margin-top: 8px;
   font-size: 20px;
 }
+
 #searchbar-ext.active>.slider>span:after {
-  content: "◀";
+  content: "▶";
 }
 
 #searchbar-ext>.contents {
-  position: relative;
-  width: 328px;
-  height: 188px;
+  height: 88px;
+  width: 240px;
 
   padding: 16px;
+  padding-left: 20px;
 
   background-color: white;
 }

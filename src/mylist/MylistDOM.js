@@ -34,8 +34,9 @@
         var observeDOM = this.document.getElementById('mylist');
         var option = { childList: true, subtree: true };
 
-        var findRenderdTo = _.curry(_findClassByObserved.bind(this));
-        findRenderdTo = findRenderdTo(_classRenderTo, callback);
+        var findRenderdTo = _.partial(_findClassByObserved.bind(this),
+                                      _classRenderTo,
+                                      callback);
 
         this.observer = new MutationObserver(findRenderdTo);
         this.observer.observe(observeDOM, option);
@@ -48,7 +49,7 @@
         var $searchbarExt = this.getSearchbarExt();
 
         if(this.document.getElementsByClassName(findClass).length != 0
-           && $searchbarExt.length == 0
+           && !$searchbarExt
            && callback()) {
             this.observer.disconnect();
         };
@@ -56,12 +57,11 @@
 
     module.prototype.genContainer = function() {
         var $searchbarExt = this.getSearchbarExt();
-        if ($searchbarExt.length != 0) return $searchbarExt[0];
+        if ($searchbarExt) return $searchbarExt;
 
         var container = this.document.createElement('div');
-        container.className = 'searchbar-extension';
 
-        var renderTo = this.document.getElementsByClassName(_classRenderTo)[0];
+        var renderTo = this.document.body;
         renderTo.appendChild(container);
 
         return container;
@@ -69,7 +69,7 @@
 
     module.prototype.getSearchbarExt = function() {
         return this.document
-                .getElementsByClassName('searchbar-extension');
+                .getElementById('searchbar-ext');
     };
 
     return module;
