@@ -10,7 +10,7 @@
 
     var module = React.createClass({
         propTypes: {
-            searchEngine: React.PropTypes.object,
+            searchEngine: React.PropTypes.object
         },
 
         renderChildren: function() {
@@ -43,6 +43,9 @@
                     }).value();
 
             this.props.searchEngine.updateMethod(andorOption, strategies);
+
+            var query = this.props.searchEngine.getQueryInput();
+            this.props.searchEngine.updateSearchResult(query);
         },
 
         render: function () {

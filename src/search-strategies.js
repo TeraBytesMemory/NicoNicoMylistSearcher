@@ -10,26 +10,34 @@
 
     var module = {};
 
-    var _searchMethod = function (andorOption, strategies, keywords, item) {
-        for (var i=0; i<strategies.length; i++) {
-            var result = andorOption(strategies[i], keywords, item);
-            if (result) { return true; }
-        }
-        return false;
-    };
+    var _searchMethod = function(andorOption, strategies, keywords, item) {
+        return andorOption(strategies, keywords, item);
+    }
 
     module.generateSearchMethod = function (andorOption, strategies) {
         return _.curry(_searchMethod)(andorOption, strategies);
     };
 
-    module.andOption = function (strategy, keywords, item) {
-        var f = _.curry(strategy)(_, item);
-        return _.every(_.map(keywords, f));
+    module.andOption = function (strategies, keywords, item) {
+        var fs = _.map(strategies,
+                       function(strategy) {
+                           return _.curry(strategy)(_, item);
+                       });
+
+       return _.every(_.map(fs, function(f) {
+           return _.every(_.map(keywords, f));
+       }));
     };
 
-    module.orOption = function (strategy, keywords, item) {
-        var f = _.curry(strategy)(_, item);
-        return _.any(_.map(keywords, f));
+    module.orOption = function (strategies, keywords, item) {
+        var fs = _.map(strategies,
+                       function(strategy) {
+                           return _.curry(strategy)(_, item);
+                       });
+
+       return _.any(_.map(fs, function(f) {
+           return _.any(_.map(keywords, f));
+       }));
     };
 
     module.titleStrategy = function(keyword, item) {

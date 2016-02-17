@@ -16,12 +16,13 @@
         },
 
         handleChange: function (e) {
-            this.props.searchEngine.updateSearchResult(e.target.value);
+            var query = e.target.value;
+            this.props.searchEngine.updateSearchResult(query);
         },
 
         render: function () {
             return (
-                    <div class='ext-search-bar'>
+                    <div className='ext-searchbar-input'>
                     <input
                 onChange={this.handleChange}
                 placeholder='検索ワード'
