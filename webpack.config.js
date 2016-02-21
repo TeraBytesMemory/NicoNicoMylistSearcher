@@ -5,7 +5,8 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.jsx$/, loader: 'jsx-loader' }
+            { test: /\.jsx$/, loader: 'jsx-loader' },
+            { test: /\.css$/, loader: 'style-loader!css-loader' }
         ]
     },
     devtool: 'inline-source-map',
